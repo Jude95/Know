@@ -37,6 +37,7 @@ public class QuestionViewHolder extends BaseViewHolder<Question> {
         title.setText(data.getTitle());
         name.setText(data.getAuthorName());
         face.setImageURI(Uri.parse(data.getAuthorFace()));
+        //时间解析有bug
         date.setText(new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormater()));
         content.setText(data.getContent());
     }
