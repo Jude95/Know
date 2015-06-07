@@ -1,4 +1,4 @@
-package com.jude.know.model;
+package com.jude.know.util;
 
 import com.android.http.RequestManager;
 import com.jude.know.config.API;

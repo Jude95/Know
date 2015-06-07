@@ -1,6 +1,6 @@
 package com.jude.know.module.main;
 
-import com.jude.know.model.DataCallback;
+import com.jude.know.util.DataCallback;
 import com.jude.know.model.QuestionModel;
 import com.jude.know.model.bean.QuestionResult;
 import com.jude.know.util.Utils;

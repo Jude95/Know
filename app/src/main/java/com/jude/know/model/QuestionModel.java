@@ -1,20 +1,20 @@
 package com.jude.know.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.http.RequestManager;
 import com.android.http.RequestMap;
 import com.jude.know.app.AbsModel;
 import com.jude.know.config.API;
 import com.jude.know.model.bean.QuestionResult;
+import com.jude.know.util.DataCallback;
 import com.jude.know.util.Utils;
 
 /**
  * Created by zhuchenxi on 15/6/7.
  */
 public class QuestionModel extends AbsModel {
-    private static QuestionModel model = new QuestionModel();
+    private static final QuestionModel model = new QuestionModel();
     public static QuestionModel getInstance(){
         return model;
     }
