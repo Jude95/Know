@@ -45,4 +45,12 @@ public class QuestionModel extends AbsModel {
         params.put("desc", desc?"true":"false");
         RequestManager.getInstance().post(API.URL.GetAnswerList,params,callback);
     }
+
+    public void publicAnswer(String questionId,String answer,StatusCallback callback){
+        RequestMap params = new RequestMap();
+        params.put("questionId",questionId);
+        params.put("content",answer);
+        params.put("token", APP.getInstance().getToken());
+        RequestManager.getInstance().post(API.URL.PublicAnswer,params,callback);
+    }
 }

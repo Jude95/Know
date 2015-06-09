@@ -8,6 +8,7 @@ public class API {
         public static final String GetQuestionList = "http://redrock.hotwoo.cn/zhihu/getQuestionList.php";
         public static final String PublicQuestion = "http://redrock.hotwoo.cn/zhihu/question.php";
         public static final String GetAnswerList = "http://redrock.hotwoo.cn/zhihu/getAnswerList.php";
+        public static final String PublicAnswer = "http://redrock.hotwoo.cn/zhihu/answer.php";
     }
 
     public static class KEY{

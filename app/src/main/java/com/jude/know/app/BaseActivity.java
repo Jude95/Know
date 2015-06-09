@@ -5,10 +5,12 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.know.R;
 
-import nucleus.presenter.Presenter;
+import nucleus.manager.Presenter;
 import nucleus.view.NucleusAppCompatActivity;
 
 /**
@@ -22,8 +24,25 @@ public class BaseActivity<T extends Presenter> extends NucleusAppCompatActivity<
         if (toolbar!=null){
             setSupportActionBar(toolbar);
             //getSupportActionBar().setDisplayHomeAsUpEnabled(returnAble);
-
         }
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        setToolBar(false);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        setToolBar(false);
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+        setToolBar(false);
     }
 
     public void showProgress(String title){

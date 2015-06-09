@@ -11,7 +11,7 @@ public class Answer {
     String authorName;
 
     public String getAuthorFace() {
-        return authorFace;
+        return authorFace==null?"":authorFace;
     }
 
     public void setAuthorFace(String authorFace) {

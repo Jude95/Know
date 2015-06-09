@@ -4,11 +4,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/White">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Gray100"/>
     <FrameLayout
         android:id="@+id/info"
         android:layout_width="match_parent"
-        android:layout_height="24dp">
+        android:layout_height="24dp"
+        android:layout_margin="16dp">
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/face"
             android:layout_width="24dp"
@@ -27,6 +32,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="right"
             android:gravity="center_vertical|right"
             />
     </FrameLayout>
@@ -34,6 +40,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"/>
 
 </LinearLayout>

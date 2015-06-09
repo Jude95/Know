@@ -10,7 +10,7 @@ import com.jude.know.util.BaseViewHolder;
 import com.jude.know.util.RecyclerArrayAdapter;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import nucleus.presenter.Presenter;
+import nucleus.manager.Presenter;
 
 /**
  * Created by zhuchenxi on 15/6/8.

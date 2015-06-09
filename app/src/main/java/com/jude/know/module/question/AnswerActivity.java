@@ -20,6 +20,7 @@ import com.jude.know.util.BaseViewHolder;
 import com.jude.know.util.RecentDateFormater;
 import com.jude.know.util.RecyclerArrayAdapter;
 import com.jude.know.util.TimeTransform;
+import com.jude.know.util.Utils;
 
 import nucleus.factory.RequiresPresenter;
 
@@ -32,7 +33,6 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setToolBar(true);
         setRefreshAble();
         setLoadMoreAble();
     }
@@ -88,10 +88,22 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.answer){
-            //startActivityForResult(new Intent(this, WriteQuestionActivity.class), WRITE);
+            Intent i = new Intent(this, WriteAnswerActivity.class);
+            i.putExtra("question",getPresenter().getQuestion());
+            startActivityForResult(i, WRITE);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private static final int WRITE = 1000;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == WRITE && resultCode == RESULT_OK){
+            Utils.Log("refreshed");
+            getPresenter().addAnswers(0);
+        }
     }
 
 }

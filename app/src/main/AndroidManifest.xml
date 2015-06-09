@@ -21,6 +21,8 @@
             android:label="提问"></activity>
         <activity android:name=".module.question.AnswerActivity"
             android:label="问题"></activity>
+        <activity android:name=".module.question.WriteAnswerActivity"
+            android:label="回答"></activity>
     </application>
 
 </manifest>
