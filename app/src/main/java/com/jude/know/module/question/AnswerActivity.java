@@ -1,8 +1,11 @@
 package com.jude.know.module.question;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -76,5 +79,19 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.answer,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.answer){
+            //startActivityForResult(new Intent(this, WriteQuestionActivity.class), WRITE);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
