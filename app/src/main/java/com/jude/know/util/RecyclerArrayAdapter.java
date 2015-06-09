@@ -161,10 +161,12 @@ abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseV
 
     public void addHeader(HeaderView view){
         headers.add(view);
+        notifyDataSetChanged();
     }
 
     public void addFooter(FooterView view){
         footers.add(view);
+        notifyDataSetChanged();
     }
 
     /**

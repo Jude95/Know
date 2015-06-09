@@ -6,6 +6,8 @@ package com.jude.know.config;
 public class API {
     public static class URL{
         public static final String GetQuestionList = "http://redrock.hotwoo.cn/zhihu/getQuestionList.php";
+        public static final String PublicQuestion = "http://redrock.hotwoo.cn/zhihu/question.php";
+        public static final String GetAnswerList = "http://redrock.hotwoo.cn/zhihu/getAnswerList.php";
     }
 
     public static class KEY{

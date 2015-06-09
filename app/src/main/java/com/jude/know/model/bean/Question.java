@@ -1,9 +1,11 @@
 package com.jude.know.model.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by zhuchenxi on 15/6/7.
  */
-public class Question {
+public class Question implements Serializable{
     String id;
     String title;
     String content;
@@ -12,6 +14,7 @@ public class Question {
     String authorId;
     String authorName;
     String authorFace;
+    int answerCount;
 
     public String getId() {
         return id;
@@ -85,5 +88,5 @@ public class Question {
         this.answerCount = answerCount;
     }
 
-    int answerCount;
+
 }

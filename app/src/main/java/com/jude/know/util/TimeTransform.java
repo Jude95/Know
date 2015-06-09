@@ -64,6 +64,7 @@ public class TimeTransform {
         SimpleDateFormat format = new SimpleDateFormat(formatString);
         try {
             currentTime.setTime(format.parse(content));
+            Utils.Log(currentTime.getTimeInMillis()/1000+"");
             return this;
         } catch (ParseException e) {
             return null;

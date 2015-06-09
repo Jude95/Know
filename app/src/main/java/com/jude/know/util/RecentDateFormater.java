@@ -11,11 +11,11 @@ public class RecentDateFormater implements TimeTransform.DateFormater{
                 return delta +"秒前";
             }else if (delta / TimeTransform.HOUR < 1){
                 return delta / TimeTransform.SECOND+"分钟前";
-            }else if (new TimeTransform().getDay() == date.getDay()){
+            }else if (delta / TimeTransform.DAY < 2 && new TimeTransform().getDay() == date.getDay()){
                 return delta / TimeTransform.HOUR+"小时前";
-            }else if (new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY).getDay()){
+            }else if (delta / TimeTransform.DAY < 3 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY).getDay()){
                 return "昨天"+date.toString("HH:mm");
-            }else if (new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY*2).getDay()){
+            }else if (delta / TimeTransform.DAY < 4 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY*2).getDay()){
                 return "前天"+date.toString("HH:mm");
             }else{
                 return date.toString("yyyy/MM/dd  hh:mm");
@@ -26,11 +26,11 @@ public class RecentDateFormater implements TimeTransform.DateFormater{
                 return delta +"秒后";
             }else if (delta / TimeTransform.HOUR < 1){
                 return delta / TimeTransform.SECOND+"分钟后";
-            }else if (new TimeTransform().getDay() == date.getDay()){
+            }else if (delta / TimeTransform.DAY > -2 && new TimeTransform().getDay() == date.getDay()){
                 return delta / TimeTransform.HOUR+"小时后";
-            }else if (new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY).getDay()){
+            }else if (delta / TimeTransform.DAY > -3 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY).getDay()){
                 return "明天"+date.toString("HH:mm");
-            }else if (new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY*2).getDay()){
+            }else if (delta / TimeTransform.DAY > -4 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY*2).getDay()){
                 return "后天"+date.toString("HH:mm");
             }else{
                 return date.toString("yyyy/MM/dd  hh:mm");

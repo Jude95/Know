@@ -10,10 +10,15 @@ import com.jude.know.util.Utils;
  * Created by zhuchenxi on 15/6/7.
  */
 public class APP extends Application {
+    private static APP instance;
+    public static APP getInstance(){
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         RequestManager.getInstance().init(this);
         RequestManager.getInstance().setDebugMode(true,"knowNet");
         Fresco.initialize(this);
@@ -22,7 +27,7 @@ public class APP extends Application {
     }
 
     public String getToken(){
-        return Utils.getPreference().getString("token","");
+        return Utils.getPreference().getString("token","6043706ee3285eac33dcfaee9e32e576aed75948");
     }
 
     public void setToken(String token){

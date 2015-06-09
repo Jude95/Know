@@ -10,13 +10,17 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".module.main.MainActivity"
+            android:name=".module.question.MainActivity"
             android:label="Know">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
+        <activity android:name=".module.question.WriteActivity"
+            android:label="提问"></activity>
+        <activity android:name=".module.question.AnswerActivity"
+            android:label="问题"></activity>
     </application>
 
 </manifest>
