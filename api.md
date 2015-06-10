@@ -13,7 +13,7 @@
 3. 为方便开发学习，info输出sql语句
 ###1. 注册
 地址：http://redrock.hotwoo.cn/zhihu/register.php
-参数：
+参数
 >name:
 >password:
 
@@ -30,7 +30,7 @@
 >name:
 >password:
 
-返回：
+返回
 >{
     "status": 200,
     "info": "SELECT * FROM person WHERE name = 'jimm' AND password = '33'",
@@ -144,14 +144,15 @@ recent表示最近回复时间。没有回复时为null。
 
 ###5. 取回答列表
 地址：http://redrock.hotwoo.cn/zhihu/getAnswerList.php
-参数：
+参数
 >page:
 >questionId:
 >count:
 >desc
 count可空，每页条数，默认20条。
 desc可空，是否倒序，填true 或 false
-返回：
+
+返回
 >{
     "status": 200,
     "info": "SELECT answer.id,answer.content,answer.date,answer.authorId,person.name as authorName,person.face as authorFace FROM person RIGHT JOIN answer ON person.id = answer.authorId WHERE questionId = 33 LIMIT 0,20",
@@ -175,19 +176,19 @@ desc可空，是否倒序，填true 或 false
                 "authorName": "zhs",
                 "authorFace": null
             }
-        ]
-         "curPage": "0"
+        ],
+        "curPage": "0"
     }
 }
 
 ###6. 发布问题
 地址：http://redrock.hotwoo.cn/zhihu/question.php
-参数：
+参数
 >title:
 >content:
 >token:
 
-返回：
+返回
 >{
     "status": 200,
     "info": "INSERT INTO question ( authorId , title , content , date ) \n\tVALUES ( '19' , '这是标题','这是描述',now())",
@@ -196,12 +197,12 @@ desc可空，是否倒序，填true 或 false
 
 ###7. 发布回答
 地址：http://redrock.hotwoo.cn/zhihu/answer.php
-参数：
+参数
 >questionId:
 >content:
 >token
 
-返回：
+返回
 >{
     "status": 200,
     "info": "INSERT INTO answer ( authorId , questionId , content , date ) VALUES ( '34' , '13','hehe',now())",
