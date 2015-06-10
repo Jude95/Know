@@ -21,7 +21,7 @@
 
 >app ——所有基类与管理类  
 config  ——APP配置  
-model ——数据管理提供者。里面bean放所有javabean
+model ——数据管理提供者。里面bean放所有javabean  
 module  ——具体模块。里面详分不同模块  
 util  ——工具类  
 widget  ——公共组件  
