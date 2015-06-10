@@ -14,14 +14,16 @@
 
 [SuperRecyclerView](https://github.com/Malinskiy/SuperRecyclerView) 比较好用的支持下拉上拉刷新recyclerview。不要再提Listview
 
-###分包
+###分包###
 
-用这套开发框架做APP只用替换moudle和model里的内容就行。
+用这套开发框架做APP只用替换moudle和model里的内容就行。  
+
 
 >app ——所有基类与管理类  
->config  ——APP配置  
->model ——数据管理提供者
-> bean  ——javabean
->module  ——具体模块。里面详分不同模块  
->util  ——工具类  
->widget  ——公共组件  
+config  ——APP配置  
+model ——数据管理提供者。里面bean放所有javabean
+module  ——具体模块。里面详分不同模块  
+util  ——工具类  
+widget  ——公共组件  
+
+
