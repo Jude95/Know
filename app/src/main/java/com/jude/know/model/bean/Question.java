@@ -15,6 +15,15 @@ public class Question implements Serializable{
     String authorName;
     String authorFace;
     int answerCount;
+    String recent;
+
+    public String getRecent() {
+        return recent;
+    }
+
+    public void setRecent(String recent) {
+        this.recent = recent;
+    }
 
     public String getId() {
         return id;

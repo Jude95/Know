@@ -52,7 +52,11 @@ public class QuestionViewHolder extends BaseViewHolder<Question> {
         name.setText(data.getAuthorName());
         face.setImageURI(Uri.parse(data.getAuthorFace()));
         answerCount.setText(data.getAnswerCount()+"个回答");
-        date.setText(new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormater()));
+        if(data.getRecent()!=null){
+            date.setText("最近回答 "+new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getRecent()).toString(new RecentDateFormater()));
+        }else{
+            date.setText(new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormater()));
+        }
         content.setText(data.getContent());
     }
 }
