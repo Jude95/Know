@@ -1,6 +1,6 @@
 package com.jude.know.util;
 
-import com.android.http.RequestManager;
+import com.jude.http.RequestListener;
 import com.jude.know.config.API;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,7 +8,7 @@ import org.json.JSONObject;
 /**
  * Created by Mr.Jude on 2015/5/25.
  */
-public abstract class StatusCallback implements RequestManager.RequestListener {
+public abstract class StatusCallback implements RequestListener {
     @Override
     public void onRequest() {
 

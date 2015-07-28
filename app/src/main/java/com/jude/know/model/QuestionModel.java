@@ -2,16 +2,16 @@ package com.jude.know.model;
 
 import android.content.Context;
 
-import com.android.http.RequestManager;
-import com.android.http.RequestMap;
+import com.jude.beam.model.AbsModel;
+import com.jude.http.RequestManager;
+import com.jude.http.RequestMap;
 import com.jude.know.app.APP;
-import com.jude.know.app.AbsModel;
 import com.jude.know.config.API;
 import com.jude.know.model.bean.AnswerResult;
 import com.jude.know.model.bean.QuestionResult;
 import com.jude.know.util.DataCallback;
 import com.jude.know.util.StatusCallback;
-import com.jude.know.util.Utils;
+import com.jude.utils.JUtils;
 
 /**
  * Created by zhuchenxi on 15/6/7.
@@ -23,7 +23,7 @@ public class QuestionModel extends AbsModel {
     }
     @Override
     protected void onAppCreate(Context ctx) {
-        Utils.Log("knowLog", "QuestionModel begin");
+        JUtils.Log("knowLog", "QuestionModel begin");
     }
 
     public void getQuestionsFromServer(int page,DataCallback<QuestionResult> callback){

@@ -9,19 +9,24 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="MODEL"
+            android:value="com.jude.know.model.QuestionModel"
+            />
         <activity
-            android:name=".module.question.MainActivity"
+            android:name=".view.QuestionActivity"
             android:label="Know">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
-        <activity android:name=".module.question.WriteQuestionActivity"
+        <activity android:name=".view.WriteQuestionActivity"
             android:label="提问"></activity>
-        <activity android:name=".module.question.AnswerActivity"
+        <activity android:name=".view.AnswerActivity"
             android:label="问题"></activity>
-        <activity android:name=".module.question.WriteAnswerActivity"
+        <activity android:name=".view.WriteAnswerActivity"
             android:label="回答"></activity>
     </application>
 

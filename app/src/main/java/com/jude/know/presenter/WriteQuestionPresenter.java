@@ -1,11 +1,13 @@
-package com.jude.know.module.question;
+package com.jude.know.presenter;
 
 import android.app.Activity;
+
+import com.jude.beam.nucleus.manager.Presenter;
 import com.jude.know.model.QuestionModel;
 import com.jude.know.util.StatusCallback;
-import com.jude.know.util.Utils;
+import com.jude.know.view.WriteQuestionActivity;
+import com.jude.utils.JUtils;
 
-import nucleus.manager.Presenter;
 
 /**
  * Created by zhuchenxi on 15/6/8.
@@ -16,7 +18,7 @@ public class WriteQuestionPresenter extends Presenter<WriteQuestionActivity> {
         QuestionModel.getInstance().publicQuestion(title, content, new StatusCallback() {
             @Override
             public void success(String info) {
-                Utils.Toast("发布成功");
+                JUtils.Toast("发布成功");
                 getView().dismissProgress();
                 getView().setResult(Activity.RESULT_OK);
                 getView().finish();
@@ -25,7 +27,7 @@ public class WriteQuestionPresenter extends Presenter<WriteQuestionActivity> {
             @Override
             public void error(String errorInfo) {
                 getView().dismissProgress();
-                Utils.Toast(errorInfo);
+                JUtils.Toast(errorInfo);
             }
         });
     }

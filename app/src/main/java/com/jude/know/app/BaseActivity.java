@@ -6,12 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jude.beam.nucleus.manager.Presenter;
+import com.jude.beam.nucleus.view.NucleusAppCompatActivity;
 import com.jude.know.R;
 
-import nucleus.manager.Presenter;
-import nucleus.view.NucleusAppCompatActivity;
 
 /**
  * Created by zhuchenxi on 15/6/7.

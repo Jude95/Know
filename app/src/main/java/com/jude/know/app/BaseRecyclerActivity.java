@@ -5,18 +5,19 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.ViewGroup;
+
+import com.jude.beam.nucleus.manager.Presenter;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.know.R;
-import com.jude.know.util.BaseViewHolder;
-import com.jude.know.util.RecyclerArrayAdapter;
-import com.malinskiy.superrecyclerview.OnMoreListener;
-import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import nucleus.manager.Presenter;
+import com.jude.utils.JUtils;
 
 /**
  * Created by zhuchenxi on 15/6/8.
  */
 public abstract class BaseRecyclerActivity<T extends Presenter,E> extends BaseActivity<T> {
-    protected SuperRecyclerView recyclerView;
+    protected EasyRecyclerView recyclerView;
     protected DataAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,8 @@ public abstract class BaseRecyclerActivity<T extends Presenter,E> extends BaseAc
         setContentView(R.layout.activity_recyclerview);
         recyclerView = $(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter = new DataAdapter(this));
+        recyclerView.setAdapterWithProgress(adapter = new DataAdapter(this));
+        adapter.setNoMore(R.layout.view_nomore);
     }
 
     public void setRefreshAble(){
@@ -37,10 +39,10 @@ public abstract class BaseRecyclerActivity<T extends Presenter,E> extends BaseAc
     }
 
     public void setLoadMoreAble(){
-        recyclerView.setOnMoreListener(new OnMoreListener() {
+        adapter.setMore(R.layout.view_moreprogress, new RecyclerArrayAdapter.OnLoadMoreListener() {
             @Override
-            public void onMoreAsked(int i, int i1, int i2) {
-                onLoadMore();
+            public void onLoadMore() {
+                BaseRecyclerActivity.this.onLoadMore();
             }
         });
     }
@@ -55,12 +57,16 @@ public abstract class BaseRecyclerActivity<T extends Presenter,E> extends BaseAc
 
     public void addData(E[] data){
         adapter.addAll(data);
-        recyclerView.hideMoreProgress();
     }
 
     public void refreshData(E[] data){
         adapter.clear();
         adapter.addAll(data);
+    }
+
+    public void stopLoad(){
+        adapter.stopMore();
+        JUtils.Log("stopLoads");
     }
 
     protected class DataAdapter extends RecyclerArrayAdapter<E> {

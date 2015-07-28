@@ -1,21 +1,20 @@
-package com.jude.know.module.question;
+package com.jude.know.view;
 
 import android.net.Uri;
-import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.know.R;
 import com.jude.know.model.bean.Answer;
-import com.jude.know.util.BaseViewHolder;
-import com.jude.know.util.RecentDateFormater;
-import com.jude.know.util.TimeTransform;
+import com.jude.know.util.RecentDateFormat;
+import com.jude.utils.JTimeTransform;
 
 /**
  * Created by zhuchenxi on 15/6/8.
  */
-public class AnswerViewHolder extends BaseViewHolder<Answer>{
+public class AnswerViewHolder extends BaseViewHolder<Answer> {
     private TextView name;
     private SimpleDraweeView face;
     private TextView date;
@@ -33,7 +32,7 @@ public class AnswerViewHolder extends BaseViewHolder<Answer>{
     public void setData(Answer data) {
         name.setText(data.getAuthorName());
         face.setImageURI(Uri.parse(data.getAuthorFace()));
-        date.setText(new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormater()));
+        date.setText(new JTimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
     }
 }

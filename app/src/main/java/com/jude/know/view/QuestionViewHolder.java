@@ -1,4 +1,4 @@
-package com.jude.know.module.question;
+package com.jude.know.view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.know.R;
 import com.jude.know.model.bean.Question;
-import com.jude.know.util.BaseViewHolder;
-import com.jude.know.util.RecentDateFormater;
-import com.jude.know.util.TimeTransform;
+import com.jude.know.util.RecentDateFormat;
+import com.jude.utils.JTimeTransform;
 
 /**
  * Created by zhuchenxi on 15/6/7.
@@ -53,9 +53,9 @@ public class QuestionViewHolder extends BaseViewHolder<Question> {
         face.setImageURI(Uri.parse(data.getAuthorFace()));
         answerCount.setText(data.getAnswerCount()+"个回答");
         if(data.getRecent()!=null){
-            date.setText("最近回答 "+new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getRecent()).toString(new RecentDateFormater()));
+            date.setText("最近回答 "+new JTimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getRecent()).toString(new RecentDateFormat()));
         }else{
-            date.setText(new TimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormater()));
+            date.setText(new JTimeTransform().parse("yyyy-MM-dd HH:mm:ss",data.getDate()).toString(new RecentDateFormat()));
         }
         content.setText(data.getContent());
     }

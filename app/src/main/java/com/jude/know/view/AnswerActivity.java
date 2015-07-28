@@ -1,4 +1,4 @@
-package com.jude.know.module.question;
+package com.jude.know.view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,18 +11,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jude.beam.nucleus.factory.RequiresPresenter;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.know.R;
-import com.jude.know.app.BaseActivity;
 import com.jude.know.app.BaseRecyclerActivity;
 import com.jude.know.model.bean.Answer;
 import com.jude.know.model.bean.Question;
-import com.jude.know.util.BaseViewHolder;
-import com.jude.know.util.RecentDateFormater;
-import com.jude.know.util.RecyclerArrayAdapter;
-import com.jude.know.util.TimeTransform;
-import com.jude.know.util.Utils;
+import com.jude.know.presenter.AnswerPresenter;
+import com.jude.know.util.RecentDateFormat;
+import com.jude.utils.JTimeTransform;
 
-import nucleus.factory.RequiresPresenter;
 
 /**
  * Created by zhuchenxi on 15/6/8.
@@ -39,12 +38,12 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
 
     @Override
     protected void onRefresh() {
-        getPresenter().addAnswers(0);
+        getPresenter().refreshAnswer();
     }
 
     @Override
     protected void onLoadMore() {
-        getPresenter().addAnswers(getAdapter().getPage()+1);
+        getPresenter().addAnswers();
     }
 
     @Override
@@ -56,7 +55,7 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
         getAdapter().addHeader(new AnswerHeader(question));
     }
 
-    class AnswerHeader implements RecyclerArrayAdapter.HeaderView{
+    class AnswerHeader implements RecyclerArrayAdapter.ItemView{
         private Question question;
         public AnswerHeader(Question question){
             this.question = question;
@@ -69,7 +68,7 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
             ((TextView)$(view,R.id.content)).setText(question.getContent());
             ((TextView)$(view,R.id.name)).setText(question.getAuthorName());
             ((SimpleDraweeView)$(view,R.id.face)).setImageURI(Uri.parse(question.getAuthorFace()));
-            ((TextView)$(view,R.id.date)).setText(new TimeTransform().parse("yyyy-MM-dd HH:mm:ss", question.getDate()).toString(new RecentDateFormater()));
+            ((TextView)$(view,R.id.date)).setText(new JTimeTransform().parse("yyyy-MM-dd HH:mm:ss", question.getDate()).toString(new RecentDateFormat()));
             return view;
         }
 
@@ -101,8 +100,7 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WRITE && resultCode == RESULT_OK){
-            Utils.Log("refreshed");
-            getPresenter().addAnswers(0);
+            getPresenter().refreshAnswer();
         }
     }
 

@@ -1,13 +1,15 @@
-package com.jude.know.module.question;
+package com.jude.know.view;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.jude.beam.nucleus.factory.RequiresPresenter;
 import com.jude.know.R;
 import com.jude.know.app.BaseActivity;
-import nucleus.factory.RequiresPresenter;
+import com.jude.know.presenter.WriteQuestionPresenter;
+
 
 /**
  * Created by zhuchenxi on 15/6/8.

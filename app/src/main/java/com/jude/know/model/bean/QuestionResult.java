@@ -6,6 +6,16 @@ package com.jude.know.model.bean;
 public class QuestionResult {
     int totalCount;
     int totalPage;
+    int curPage;
+
+    public int getCurPage() {
+        return curPage;
+    }
+
+    public void setCurPage(int curPage) {
+        this.curPage = curPage;
+    }
+
     Question[] questions;
 
     public int getTotalCount() {

@@ -1,8 +1,8 @@
 package com.jude.know.util;
 
 
-import com.android.http.RequestManager;
 import com.google.gson.Gson;
+import com.jude.http.RequestListener;
 import com.jude.know.config.API;
 
 import org.json.JSONException;
@@ -13,7 +13,7 @@ import java.lang.reflect.ParameterizedType;
 /**
  * Created by zhuchenxi on 15/5/11.
  */
-public abstract class DataCallback<T> implements RequestManager.RequestListener {
+public abstract class DataCallback<T> implements RequestListener {
     private DataCallback<T> link;
     public DataCallback<T> add(DataCallback<T> other){
         other.setLink(this);
