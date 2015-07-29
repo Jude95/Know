@@ -17,6 +17,11 @@ import com.jude.know.R;
  */
 public class BaseActivity<T extends Presenter> extends NucleusAppCompatActivity<T> {
     private Toolbar toolbar;
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
     private MaterialDialog dialog;
     protected void setToolBar(boolean returnAble){
         toolbar = $(R.id.toolbar);

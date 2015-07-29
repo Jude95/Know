@@ -6,6 +6,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
 import com.jude.http.RequestManager;
 import com.jude.know.BuildConfig;
+import com.jude.know.config.Dir;
+import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
 
 /**
@@ -25,7 +27,9 @@ public class APP extends Application {
         RequestManager.getInstance().setDebugMode(true, "knowNet");
         Fresco.initialize(this);
         JUtils.initialize(this);
-        JUtils.setDebug(BuildConfig.DEBUG,"knowDefault");
+        JUtils.setDebug(BuildConfig.DEBUG, "knowDefault");
+
+        JFileManager.getInstance().init(this, Dir.values());
         Beam.init(this);
     }
 

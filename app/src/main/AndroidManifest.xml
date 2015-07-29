@@ -12,7 +12,11 @@
 
         <meta-data
             android:name="MODEL"
-            android:value="com.jude.know.model.QuestionModel"
+            android:value="
+            com.jude.know.model.QuestionModel,
+            com.jude.know.model.AccountModel,
+            com.jude.know.model.RemoteFileModel
+            "
             />
         <activity
             android:name=".view.QuestionActivity"

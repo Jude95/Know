@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.jude.beam.nucleus.manager.Presenter;
 import com.jude.know.model.QuestionModel;
 import com.jude.know.model.bean.Question;
-import com.jude.know.util.StatusCallback;
+import com.jude.know.model.callback.StatusCallback;
 import com.jude.know.view.WriteAnswerActivity;
 import com.jude.utils.JUtils;
 

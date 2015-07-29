@@ -1,17 +1,18 @@
-package com.jude.know.util;
+package com.jude.know.model.callback;
 
-import com.jude.http.RequestListener;
 import com.jude.know.config.API;
+import com.jude.utils.JUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by Mr.Jude on 2015/5/25.
  */
-public abstract class StatusCallback implements RequestListener {
+public abstract class StatusCallback extends LinkCallback {
     @Override
     public void onRequest() {
-
+        super.onRequest();
     }
 
     @Override
@@ -21,24 +22,34 @@ public abstract class StatusCallback implements RequestListener {
             jsonObject = new JSONObject(s);
             int status = jsonObject.getInt(API.KEY.STATUS);
             String info = jsonObject.getString(API.KEY.INFO);
-            if (status == API.CODE.SUCCEED){
+            result(status, info);
+            if(status == API.CODE.SUCCEED){
                 success(info);
+            }else if (status == API.CODE.Failure){
+                failure(info);
             }else if (status == API.CODE.PERMISSION_DENIED){
                 authorizationFailure();
-            }else{
-                error(info);
             }
         } catch (JSONException e) {
             error("数据解析错误");
         }
+        super.onSuccess(s);
     }
 
     @Override
     public void onError(String s) {
-
+        result(-1,"网络错误");
+        error("网络错误");
+        super.onError(s);
     }
 
+    public void result(int status, String info){}
     public abstract void success(String info);
+    public void failure(String info){
+        JUtils.Toast(info);
+    }
     public void authorizationFailure(){}
-    public abstract void error(String errorInfo);
+    public void error(String errorInfo){
+        JUtils.Toast(errorInfo);
+    }
 }

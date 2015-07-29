@@ -8,7 +8,7 @@ import com.jude.know.model.QuestionModel;
 import com.jude.know.model.bean.Answer;
 import com.jude.know.model.bean.AnswerResult;
 import com.jude.know.model.bean.Question;
-import com.jude.know.util.DataCallback;
+import com.jude.know.model.callback.DataCallback;
 import com.jude.know.view.AnswerActivity;
 import com.jude.utils.JUtils;
 

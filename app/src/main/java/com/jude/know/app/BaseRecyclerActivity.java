@@ -22,12 +22,17 @@ public abstract class BaseRecyclerActivity<T extends Presenter,E> extends BaseAc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recyclerview);
+        setContentView(getLayoutRes());
         recyclerView = $(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapterWithProgress(adapter = new DataAdapter(this));
         adapter.setNoMore(R.layout.view_nomore);
     }
+
+    protected int getLayoutRes(){
+        return R.layout.activity_recyclerview;
+    }
+
 
     public void setRefreshAble(){
         recyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

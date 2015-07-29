@@ -9,6 +9,8 @@ public class API {
         public static final String PublicQuestion = "http://redrock.hotwoo.cn/zhihu/question.php";
         public static final String GetAnswerList = "http://redrock.hotwoo.cn/zhihu/getAnswerList.php";
         public static final String PublicAnswer = "http://redrock.hotwoo.cn/zhihu/answer.php";
+        public static final String QiniuToken = "http://redrock.hotwoo.cn/zhihu/qiniu.php";
+        public static final String ModifyFace = "http://redrock.hotwoo.cn/zhihu/modifyFace.php";
     }
 
     public static class KEY{

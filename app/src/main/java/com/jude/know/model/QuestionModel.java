@@ -9,8 +9,8 @@ import com.jude.know.app.APP;
 import com.jude.know.config.API;
 import com.jude.know.model.bean.AnswerResult;
 import com.jude.know.model.bean.QuestionResult;
-import com.jude.know.util.DataCallback;
-import com.jude.know.util.StatusCallback;
+import com.jude.know.model.callback.DataCallback;
+import com.jude.know.model.callback.StatusCallback;
 import com.jude.utils.JUtils;
 
 /**
