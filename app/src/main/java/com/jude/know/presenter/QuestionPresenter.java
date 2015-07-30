@@ -11,6 +11,7 @@ import com.jude.know.model.QuestionModel;
 import com.jude.know.model.RemoteFileModel;
 import com.jude.know.model.bean.Question;
 import com.jude.know.model.bean.QuestionResult;
+import com.jude.know.model.bean.User;
 import com.jude.know.model.callback.DataCallback;
 import com.jude.know.model.callback.StatusCallback;
 import com.jude.know.view.QuestionActivity;
@@ -84,6 +85,52 @@ public class QuestionPresenter extends Presenter<QuestionActivity> {
         });
     }
 
+    public void login(String name,String password){
+        getView().showProgress("登陆中");
+        AccountModel.getInstance().login(name, password, new DataCallback<User>() {
+
+
+            @Override
+            public void result(int status, String info) {
+                getView().dismissProgress();
+            }
+
+            @Override
+            public void success(String info, User data) {
+                JUtils.Toast("登陆成功");
+                AccountModel.getInstance().setUser(data);
+            }
+
+            @Override
+            public void failure(String info) {
+                JUtils.Toast(info);
+            }
+        });
+    }
+
+    public void register(String name,String password){
+        getView().showProgress("注册中");
+        AccountModel.getInstance().register(name, password, new StatusCallback() {
+
+
+            @Override
+            public void result(int status, String info) {
+                getView().dismissProgress();
+            }
+
+            @Override
+            public void success(String info) {
+                login(name, password);
+            }
+
+
+            @Override
+            public void failure(String info) {
+                JUtils.Toast(info);
+            }
+        });
+    }
+
     public void editFace(int style){
         OnImageSelectListener listener = new OnImageSelectListener() {
             @Override
@@ -110,6 +157,11 @@ public class QuestionPresenter extends Presenter<QuestionActivity> {
                                     @Override
                                     public void success(String info) {
                                         JUtils.Toast("上传成功");
+
+                                    }
+
+                                    @Override
+                                    public void result(int status, String info) {
                                         getView().dismissProgress();
                                     }
                                 });

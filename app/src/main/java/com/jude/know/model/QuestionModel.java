@@ -5,7 +5,6 @@ import android.content.Context;
 import com.jude.beam.model.AbsModel;
 import com.jude.http.RequestManager;
 import com.jude.http.RequestMap;
-import com.jude.know.app.APP;
 import com.jude.know.config.API;
 import com.jude.know.model.bean.AnswerResult;
 import com.jude.know.model.bean.QuestionResult;
@@ -34,7 +33,7 @@ public class QuestionModel extends AbsModel {
         RequestMap params = new RequestMap();
         params.put("title",title);
         params.put("content",content);
-        params.put("token", APP.getInstance().getToken());
+        params.put("token", AccountModel.getInstance().getToken());
         RequestManager.getInstance().post(API.URL.PublicQuestion,params,callback);
     }
 
@@ -50,7 +49,7 @@ public class QuestionModel extends AbsModel {
         RequestMap params = new RequestMap();
         params.put("questionId",questionId);
         params.put("content",answer);
-        params.put("token", APP.getInstance().getToken());
+        params.put("token", AccountModel.getInstance().getToken());
         RequestManager.getInstance().post(API.URL.PublicAnswer,params,callback);
     }
 }

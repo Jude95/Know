@@ -11,6 +11,8 @@ public class API {
         public static final String PublicAnswer = "http://redrock.hotwoo.cn/zhihu/answer.php";
         public static final String QiniuToken = "http://redrock.hotwoo.cn/zhihu/qiniu.php";
         public static final String ModifyFace = "http://redrock.hotwoo.cn/zhihu/modifyFace.php";
+        public static final String Register = "http://redrock.hotwoo.cn/zhihu/register.php";
+        public static final String Login = "http://redrock.hotwoo.cn/zhihu/login.php";
     }
 
     public static class KEY{

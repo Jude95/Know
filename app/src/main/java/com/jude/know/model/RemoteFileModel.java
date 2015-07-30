@@ -6,6 +6,7 @@ import com.jude.http.RequestManager;
 import com.jude.know.config.API;
 import com.jude.know.model.callback.DataCallback;
 import com.jude.library.imageprovider.Utils;
+import com.jude.utils.JUtils;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -21,7 +22,7 @@ public class RemoteFileModel extends AbsModel {
     public static RemoteFileModel getInstance() {
         return getInstance(RemoteFileModel.class);
     }
-    public static final String ADDRESS = "http://7xjdz6.com2.z0.glb.qiniucdn.com/";
+    public static final String ADDRESS = "http://7xkr5d.com2.z0.glb.qiniucdn.com/";
 
     private UploadManager mUploadManager;
     public interface UploadImageListener{
@@ -75,7 +76,9 @@ public class RemoteFileModel extends AbsModel {
                 mUploadManager.put(file, realName, data.getToken(), new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject response) {
-                        listener.onComplete(img);
+                        if (info.isOK())listener.onComplete(img);
+                        else listener.onError();
+                        JUtils.Log("QINIU:" + info.toString());
                     }
                 }, null);
             }

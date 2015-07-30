@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.jude.beam.nucleus.factory.RequiresPresenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.know.R;
 import com.jude.know.app.BaseRecyclerActivity;
+import com.jude.know.model.AccountModel;
 import com.jude.know.model.bean.Question;
 import com.jude.know.presenter.QuestionPresenter;
 import com.jude.know.util.PopupWindowsUtils;
@@ -107,9 +110,8 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main,menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         mUserView = (SimpleDraweeView) menu.findItem(R.id.user).getActionView();
-        mUserView.setImageURI(Uri.parse("http://i1.hdslb.com/user/16154/1615425/myface.jpg"));
 
         mUserView.getHierarchy().setRoundingParams(RoundingParams.asCircle());
         mUserView.setPadding(0, 0, JUtils.dip2px(8), 0);
@@ -118,7 +120,10 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
         mUserView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUserWindows.show();
+                if (AccountModel.getInstance().getUser()!=null)
+                    mUserWindows.show();
+                else
+                    showLogin();
             }
         });
         mUserWindows = PopupWindowsUtils.createTextListPopupWindows(this, new String[]{"修改头像", "修改姓名", "退出登录"}, new PopupWindowsUtils.PopupListener() {
@@ -137,6 +142,9 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
                 }
             }
         });
+        mUserView.getHierarchy().setPlaceholderImage(R.drawable.ic_person);
+        if (AccountModel.getInstance().getUser()!=null&&AccountModel.getInstance().getUser().getFace()!=null)
+            mUserView.setImageURI(Uri.parse(AccountModel.getInstance().getUser().getFace()));
         mUserWindows.setAnchorView(mUserView);
         mUserWindows.setWidth(JUtils.dip2px(108));
         mUserWindows.setVerticalOffset(JUtils.dip2px(8));
@@ -167,5 +175,49 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
                 }).show();
     }
 
+    private void showLogin(){
+        View LoginView = LayoutInflater.from(this).inflate(R.layout.view_login,null);
+        TextInputLayout tilNumber = (TextInputLayout) LoginView.findViewById(R.id.tilNumber);
+        TextInputLayout tilPassword = (TextInputLayout) LoginView.findViewById(R.id.tilPassword);
+        new MaterialDialog.Builder(this)
+                .title("请登录")
+                .customView(LoginView,false)
+                .positiveText("登录")
+                .negativeText("注册")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        getPresenter().login(tilNumber.getEditText().getText().toString(), tilPassword.getEditText().getText().toString());
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        showRegister();
+                    }
+                })
+                .show();
+    }
+
+    private void showRegister(){
+        View LoginView = LayoutInflater.from(this).inflate(R.layout.view_login,null);
+        TextInputLayout tilNumber = (TextInputLayout) LoginView.findViewById(R.id.tilNumber);
+        TextInputLayout tilPassword = (TextInputLayout) LoginView.findViewById(R.id.tilPassword);
+        new MaterialDialog.Builder(this)
+                .title("请注册")
+                .customView(LoginView, false)
+                .positiveText("注册")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        getPresenter().register(tilNumber.getEditText().getText().toString(), tilPassword.getEditText().getText().toString());
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                    }
+                })
+                .show();
+    }
 
 }

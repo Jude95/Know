@@ -33,11 +33,4 @@ public class APP extends Application {
         Beam.init(this);
     }
 
-    public String getToken(){
-        return JUtils.getSharedPreference().getString("token","6043706ee3285eac33dcfaee9e32e576aed75948");
-    }
-
-    public void setToken(String token){
-        JUtils.getSharedPreference().edit().putString("token", token).commit();
-    }
 }
