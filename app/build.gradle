@@ -39,10 +39,11 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.5.5'
     compile 'com.android.support:design:22.2.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
+    compile 'io.reactivex:rxandroid:0.25.0'
 
     compile 'com.jude:easyrecyclerview:1.0.3'
     compile 'com.jude:requestvolley:1.0.4'
     compile 'com.jude:beam:1.0.1'
-    compile 'com.jude:utils:1.0.2'
+    compile 'com.jude:utils:1.0.6'
     compile 'com.jude:imageprovider:1.0.3'
 }

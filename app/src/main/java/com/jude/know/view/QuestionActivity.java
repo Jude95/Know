@@ -22,6 +22,7 @@ import com.jude.know.R;
 import com.jude.know.app.BaseRecyclerActivity;
 import com.jude.know.model.AccountModel;
 import com.jude.know.model.bean.Question;
+import com.jude.know.model.bean.User;
 import com.jude.know.presenter.QuestionPresenter;
 import com.jude.know.util.PopupWindowsUtils;
 import com.jude.utils.JUtils;
@@ -117,15 +118,6 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
         mUserView.setPadding(0, 0, JUtils.dip2px(8), 0);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(JUtils.dip2px(40),JUtils.dip2px(32));
         mUserView.setLayoutParams(params);
-        mUserView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AccountModel.getInstance().getUser()!=null)
-                    mUserWindows.show();
-                else
-                    showLogin();
-            }
-        });
         mUserWindows = PopupWindowsUtils.createTextListPopupWindows(this, new String[]{"修改头像", "修改姓名", "退出登录"}, new PopupWindowsUtils.PopupListener() {
             @Override
             public void onListenerPop(ListPopupWindow listp) {
@@ -139,15 +131,18 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
                     case 0:
                         editFace();
                         break;
+                    case 2:
+                        signOut();
+                        break;
                 }
             }
         });
         mUserView.getHierarchy().setPlaceholderImage(R.drawable.ic_person);
-        if (AccountModel.getInstance().getUser()!=null&&AccountModel.getInstance().getUser().getFace()!=null)
-            mUserView.setImageURI(Uri.parse(AccountModel.getInstance().getUser().getFace()));
+
         mUserWindows.setAnchorView(mUserView);
         mUserWindows.setWidth(JUtils.dip2px(108));
         mUserWindows.setVerticalOffset(JUtils.dip2px(8));
+        setUser(user);
         return true;
     }
 
@@ -157,7 +152,6 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == WRITE && resultCode == RESULT_OK){
             getPresenter().refreshQuestion();
         }
@@ -174,6 +168,33 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
                     }
                 }).show();
     }
+    private User user = null;
+    public void setUser(User user){
+        this.user = user;
+        if (mUserView == null)return;
+        if (user==null){
+            mUserView.setImageURI(JUtils.getUriFromRes(R.drawable.ic_person));
+            mUserView.setOnClickListener(v->showLogin());
+        }else{
+            if (AccountModel.getInstance().getUser().getFace()!=null)
+                mUserView.setImageURI(Uri.parse(AccountModel.getInstance().getUser().getFace()));
+            mUserView.setOnClickListener(v -> mUserWindows.show());
+        }
+    }
+    private void signOut(){
+        new MaterialDialog.Builder(this)
+                .title("退出登录")
+                .content("您真的要退出登录吗？")
+                .positiveText("退出")
+                .negativeText("取消")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        getPresenter().signOut();
+                    }
+                }).show();
+    }
+
 
     private void showLogin(){
         View LoginView = LayoutInflater.from(this).inflate(R.layout.view_login,null);

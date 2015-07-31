@@ -18,7 +18,6 @@ import com.jude.know.view.QuestionActivity;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
 import com.jude.utils.JUtils;
-import com.qiniu.android.storage.UploadManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,14 +29,16 @@ public class QuestionPresenter extends Presenter<QuestionActivity> {
     int page = 0;
     private ArrayList<Question> arr = new ArrayList<>();
     private ImageProvider provider;
-    private UploadManager mUploadManager;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         refreshQuestion();
         provider = new ImageProvider(getView());
-        mUploadManager = new UploadManager();
+        getView().setUser(AccountModel.getInstance().getUser());
+        AccountModel.getInstance().registerUserSubscriber(user -> {
+            getView().setUser(user);
+        });
     }
 
     @Override
@@ -83,6 +84,10 @@ public class QuestionPresenter extends Presenter<QuestionActivity> {
                 JUtils.Toast(errorInfo);
             }
         });
+    }
+
+    public void signOut(){
+        AccountModel.getInstance().setUser(null);
     }
 
     public void login(String name,String password){

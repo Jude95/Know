@@ -13,12 +13,16 @@ import com.jude.know.model.callback.StatusCallback;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
 
+import rx.functions.Action1;
+import rx.subjects.BehaviorSubject;
+
 /**
  * Created by Mr.Jude on 2015/7/29.
  */
 public class AccountModel extends AbsModel {
     private JFileManager.Folder mObjectFolder;
     private static final String AccountFileName = "Account";
+    private BehaviorSubject<User> mUserSubject;
 
     public static final AccountModel getInstance(){
         return getInstance(AccountModel.class);
@@ -28,15 +32,27 @@ public class AccountModel extends AbsModel {
     protected void onAppCreateOnBackThread(Context ctx) {
         super.onAppCreateOnBackThread(ctx);
         mObjectFolder = JFileManager.getInstance().getFolder(Dir.Object);
+        mUserSubject = BehaviorSubject.create();
+    }
+
+    public void registerUserSubscriber(Action1<User> subscriber){
+        mUserSubject.subscribe(subscriber);
+    }
+
+    public void setUser(User user){
+        if (user!=null){
+            mObjectFolder.writeObjectToFile(user,AccountFileName);
+            setToken(user.getToken());
+            mUserSubject.onNext(user);
+        }else{
+            mObjectFolder.deleteChild(AccountFileName);
+            setToken("");
+            mUserSubject.onNext(null);
+        }
     }
 
     public User getUser(){
         return (User) mObjectFolder.readObjectFromFile(AccountFileName);
-    }
-
-    public void setUser(User user){
-        mObjectFolder.writeObjectToFile(user,AccountFileName);
-        setToken(user.getToken());
     }
 
     public String getToken(){

@@ -11,6 +11,10 @@ public class User implements Serializable{
     private String face;
     private String token;
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public String getToken() {
         return token;
     }

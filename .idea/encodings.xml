@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/model/RemoteFileModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/model/callback/DataCallback.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/model/callback/LinkCallback.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/model/callback/StatusCallback.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/presenter/QuestionPresenter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/util/RecentDateFormat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jude/know/view/QuestionActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/view_nomore.xml" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
