@@ -15,6 +15,7 @@ import com.jude.know.model.bean.User;
 import com.jude.know.model.callback.DataCallback;
 import com.jude.know.model.callback.StatusCallback;
 import com.jude.know.view.QuestionActivity;
+import com.jude.know.view.WriteQuestionActivity;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
 import com.jude.utils.JUtils;
@@ -45,6 +46,11 @@ public class QuestionPresenter extends Presenter<QuestionActivity> {
     protected void onCreateView(QuestionActivity view) {
         super.onCreateView(view);
         getView().refreshData(arr.toArray(new Question[0]));
+    }
+
+    public void startQuestion(){
+        if (AccountModel.getInstance().getUser()==null)getView().showLogin();
+        else getView().startActivity(new Intent(getView(), WriteQuestionActivity.class));
     }
 
     public void refreshQuestion(){

@@ -52,7 +52,7 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(QuestionActivity.this, WriteQuestionActivity.class), WRITE);
+                getPresenter().startQuestion();
             }
         });
         mFAB.post(new Runnable() {
@@ -181,7 +181,7 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
             mUserView.setOnClickListener(v -> mUserWindows.show());
         }
     }
-    private void signOut(){
+    public void signOut(){
         new MaterialDialog.Builder(this)
                 .title("退出登录")
                 .content("您真的要退出登录吗？")
@@ -196,7 +196,7 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
     }
 
 
-    private void showLogin(){
+    public void showLogin(){
         View LoginView = LayoutInflater.from(this).inflate(R.layout.view_login,null);
         TextInputLayout tilNumber = (TextInputLayout) LoginView.findViewById(R.id.tilNumber);
         TextInputLayout tilPassword = (TextInputLayout) LoginView.findViewById(R.id.tilPassword);
@@ -219,7 +219,7 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
                 .show();
     }
 
-    private void showRegister(){
+    public void showRegister(){
         View LoginView = LayoutInflater.from(this).inflate(R.layout.view_login,null);
         TextInputLayout tilNumber = (TextInputLayout) LoginView.findViewById(R.id.tilNumber);
         TextInputLayout tilPassword = (TextInputLayout) LoginView.findViewById(R.id.tilPassword);

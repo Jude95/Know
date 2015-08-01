@@ -25,11 +25,11 @@
             <FrameLayout
                 android:id="@+id/info"
                 android:layout_width="match_parent"
-                android:layout_height="24dp">
+                android:layout_height="32dp">
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/face"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     app:roundAsCircle="true"
                     app:failureImage="@drawable/ic_person"
                     />
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="40dp"
                     tool:text="Jude"/>
 
             </FrameLayout>
