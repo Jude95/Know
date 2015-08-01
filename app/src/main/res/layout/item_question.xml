@@ -58,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
                 android:layout_marginTop="16dp"
-                android:maxLines="10"
+                android:maxLines="5"
+                android:lineSpacingMultiplier="1.2"
                 android:ellipsize="end"
                 style="@style/TextAppearance.AppCompat.Body1"
                 tool:text="蓝翔和新东方哪家更好，求推荐"/>
