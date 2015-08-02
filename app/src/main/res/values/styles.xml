@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/DeepPurple</item>
         <item name="colorPrimaryDark">@color/DeepPurple</item>
         <item name="colorAccent">@color/Orange</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base"></style>

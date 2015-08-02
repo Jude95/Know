@@ -1,15 +1,19 @@
 package com.jude.know.app;
 
 
+import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.nucleus.manager.Presenter;
 import com.jude.beam.nucleus.view.NucleusAppCompatActivity;
 import com.jude.know.R;
+import com.jude.swipbackhelper.SwipeBackHelper;
 
 
 /**
@@ -17,7 +21,7 @@ import com.jude.know.R;
  */
 public class BaseActivity<T extends Presenter> extends NucleusAppCompatActivity<T> {
     private Toolbar toolbar;
-
+    private SwipeBackHelper swipeBackHelper;
     public Toolbar getToolbar() {
         return toolbar;
     }
@@ -27,9 +31,22 @@ public class BaseActivity<T extends Presenter> extends NucleusAppCompatActivity<
         toolbar = $(R.id.toolbar);
         if (toolbar!=null){
             setSupportActionBar(toolbar);
+            if (Build.VERSION.SDK_INT>=21)
+                swipeBackHelper.dealToolBar(toolbar);
             //getSupportActionBar().setDisplayHomeAsUpEnabled(returnAble);
         }
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        swipeBackHelper = SwipeBackHelper.prepare(this);
+    }
+
+    public void setSwipeAble(boolean swipeAble){
+        swipeBackHelper.setSwipeBackEnable(swipeAble);
+    }
+
 
     @Override
     public void setContentView(int layoutResID) {

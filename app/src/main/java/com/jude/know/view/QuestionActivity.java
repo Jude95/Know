@@ -3,6 +3,7 @@ package com.jude.know.view;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -36,12 +37,14 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
     private SimpleDraweeView mUserView;
     private FloatingActionButton mFAB;
     private ListPopupWindow mUserWindows;
+    private int SCREEN_HEIGHT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRefreshAble();
         setLoadMoreAble();
+        setSwipeAble(false);
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -83,15 +86,15 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
         return new QuestionViewHolder(parent);
     }
 
-
     private void initAnimator(){
-        mFABAnimator = ValueAnimator.ofInt(0,mFAB.getHeight()+JUtils.dip2px(16));
+        SCREEN_HEIGHT = JUtils.getScreenHeightWithStatusBar();
+        mFABAnimator = ValueAnimator.ofInt(0,SCREEN_HEIGHT - ((int)mFAB.getY()- (Build.VERSION.SDK_INT>=21?JUtils.getStatusBarHeight():0)));
         mFABAnimator.setDuration(200);
         mFABAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value = (int) animation.getAnimatedValue();
-                mFAB.setY(JUtils.getScreenHeight() - value);
+                mFAB.setY(SCREEN_HEIGHT - value);
             }
         });
     }
@@ -99,7 +102,6 @@ public class QuestionActivity extends BaseRecyclerActivity<QuestionPresenter,Que
     private ValueAnimator  mFABAnimator;
     private void showFAB(boolean isShow){
         if (mFABAnimator == null || isShow==isShowed)return;
-        JUtils.Log("showFAB"+isShowed);
         if (isShow){
             mFABAnimator.start();
         }else{
