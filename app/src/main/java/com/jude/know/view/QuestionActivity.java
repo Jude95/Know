@@ -1,5 +1,6 @@
 package com.jude.know.view;
 
+import android.Manifest;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
@@ -24,6 +25,7 @@ import com.jude.know.presenter.QuestionPresenter;
 import com.jude.know.util.PopupWindowsUtils;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.utils.JUtils;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -110,7 +112,16 @@ public class QuestionActivity extends BeamListActivity<QuestionPresenter,Questio
                 mUserWindows.dismiss();
                 switch (position){
                     case 0:
-                        editFace();
+                        RxPermissions.getInstance(QuestionActivity.this)
+                                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                .subscribe(granted -> {
+                                    if (granted) {
+                                        editFace();
+                                    } else {
+                                        JUtils.Toast("没有权限,臣妾办不到~");
+                                    }
+                                });
+
                         break;
                     case 1:
                         signOut();
