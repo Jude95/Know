@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:orientation="vertical"
@@ -7,27 +7,32 @@
     android:layout_height="match_parent">
     <include layout="@layout/include_toolbar"></include>
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
         <com.jude.easyrecyclerview.EasyRecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_empty="@layout/view_empty"
-            app:layout_progress="@layout/view_progress"
             app:scrollbarStyle="insideInset" />
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_add"
-            app:borderWidth="0dp"
-            app:layout_anchor="@id/recyclerview"
-            app:layout_anchorGravity="bottom|right|end" />
+        <com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:padding_navigation="true"
+            app:padding_status="false"
+            >
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_add"
+                android:layout_gravity="right|bottom"
+                />
 
-    </android.support.design.widget.CoordinatorLayout>
+        </com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout>
 
-</LinearLayout>
+    </FrameLayout>
+
+
+</com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout>

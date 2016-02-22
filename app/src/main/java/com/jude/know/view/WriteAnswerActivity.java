@@ -6,16 +6,16 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jude.beam.nucleus.factory.RequiresPresenter;
+import com.jude.beam.bijection.RequiresPresenter;
+import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.know.R;
-import com.jude.know.app.BaseActivity;
 import com.jude.know.presenter.WriteAnswerPresenter;
 
 /**
  * Created by zhuchenxi on 15/6/9.
  */
 @RequiresPresenter(WriteAnswerPresenter.class)
-public class WriteAnswerActivity extends BaseActivity<WriteAnswerPresenter> {
+public class WriteAnswerActivity extends BeamBaseActivity<WriteAnswerPresenter> {
     private TextView question;
     private EditText answer;
 
@@ -25,12 +25,8 @@ public class WriteAnswerActivity extends BaseActivity<WriteAnswerPresenter> {
         setContentView(R.layout.activity_writeanswer);
         question = $(R.id.title);
         answer = $(R.id.answer);
+        question.setText(getPresenter().question.getTitle());
     }
-
-    public void setQuestion(String title){
-        question.setText(title);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,7 +37,6 @@ public class WriteAnswerActivity extends BaseActivity<WriteAnswerPresenter> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.send){
-            showProgress("发布中");
             getPresenter().publicAnswer(answer.getText().toString());
             return true;
         }

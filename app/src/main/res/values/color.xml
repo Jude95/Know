@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/DeepPurple</color>
-    <color name="colorPrimaryDark">@color/DeepPurple900</color>
+    <color name="colorPrimary">@color/Blue</color>
+    <color name="colorPrimaryDark">@color/Blue900</color>
     <color name="colorAccent">@color/Orange</color>
 
     <color name="Orange">#ff5722</color>
@@ -9,6 +9,8 @@
     <color name="DeepPurple900">#311B92</color>
     <color name="White">#fff</color>
 
+    <color name="Blue">#0080ff</color>
+    <color name="Blue900">#006cff</color>
     <color name="Gray">#888888</color>
     <color name="Gray100">#dddddd</color>
     <color name="Gray600">#999999</color>

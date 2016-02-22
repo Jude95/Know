@@ -1,12 +1,13 @@
-package com.jude.know.model.bean;
+package com.jude.know.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by zhuchenxi on 15/6/7.
  */
-public class Question implements Serializable{
-    String id;
+public class Question implements Parcelable {
+    int id;
     String title;
     String content;
     String bestAnswerId;
@@ -25,11 +26,11 @@ public class Question implements Serializable{
         this.recent = recent;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -98,4 +99,48 @@ public class Question implements Serializable{
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.content);
+        dest.writeString(this.bestAnswerId);
+        dest.writeString(this.date);
+        dest.writeString(this.authorId);
+        dest.writeString(this.authorName);
+        dest.writeString(this.authorFace);
+        dest.writeInt(this.answerCount);
+        dest.writeString(this.recent);
+    }
+
+    public Question() {
+    }
+
+    protected Question(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.content = in.readString();
+        this.bestAnswerId = in.readString();
+        this.date = in.readString();
+        this.authorId = in.readString();
+        this.authorName = in.readString();
+        this.authorFace = in.readString();
+        this.answerCount = in.readInt();
+        this.recent = in.readString();
+    }
+
+    public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
+        public Question createFromParcel(Parcel source) {
+            return new Question(source);
+        }
+
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 }

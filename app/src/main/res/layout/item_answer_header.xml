@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/White"
-    >
-    <com.balysv.materialripple.MaterialRippleLayout
-        android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <android.support.v7.widget.CardView
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mrl_rippleDuration="500"
-        app:mrl_rippleColor="@color/Gray"
-        >
+        android:layout_margin="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -20,13 +19,51 @@
             android:layout_height="match_parent"
             android:padding="16dp"
             >
+            <LinearLayout
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="24dp">
+                <ImageView
+                    android:id="@+id/face"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person_gray"
+                    />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    tools:text="Jude"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:text="提了一个问题"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    tools:text="1970/1/1"
+                    />
+            </LinearLayout>
+
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18sp"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_marginTop="8dp"
+                tools:text="好的撒肯定卡死"
                 />
+
             <TextView
                 android:id="@+id/content"
                 android:layout_width="match_parent"
@@ -34,39 +71,13 @@
                 android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
+                tools:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
                 />
 
-            <FrameLayout
-                android:id="@+id/info"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp">
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/face"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    app:roundAsCircle="true"
-                    app:failureImage="@drawable/ic_person"
-                    />
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="30dp"/>
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="right"
-                    />
-            </FrameLayout>
 
         </LinearLayout>
-
-    </com.balysv.materialripple.MaterialRippleLayout>
+    </android.support.v7.widget.CardView>
 
 </FrameLayout>
+
 

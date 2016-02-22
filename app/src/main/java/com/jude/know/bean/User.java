@@ -1,4 +1,4 @@
-package com.jude.know.model.bean;
+package com.jude.know.bean;
 
 import java.io.Serializable;
 

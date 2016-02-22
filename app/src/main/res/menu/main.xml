@@ -5,7 +5,7 @@
     <item
         android:id="@+id/user"
         android:title="user"
-        app:actionViewClass="com.facebook.drawee.view.SimpleDraweeView"
+        app:actionViewClass="android.widget.ImageView"
         app:showAsAction="always"
         ></item>
 </menu>

@@ -2,9 +2,8 @@
 <com.jude.easyrecyclerview.EasyRecyclerView
     xmlns:recycler="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerview"
+    android:id="@+id/recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    recycler:layout_empty="@layout/view_empty"
-    recycler:layout_progress="@layout/view_progress"
-    recycler:scrollbarStyle="insideInset" />
+    recycler:scrollbarStyle="insideInset"
+    android:background="@color/White"/>

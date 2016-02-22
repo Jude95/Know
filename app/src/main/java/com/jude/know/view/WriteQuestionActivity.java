@@ -5,9 +5,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.jude.beam.nucleus.factory.RequiresPresenter;
+import com.jude.beam.bijection.RequiresPresenter;
+import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.know.R;
-import com.jude.know.app.BaseActivity;
 import com.jude.know.presenter.WriteQuestionPresenter;
 
 
@@ -15,7 +15,7 @@ import com.jude.know.presenter.WriteQuestionPresenter;
  * Created by zhuchenxi on 15/6/8.
  */
 @RequiresPresenter(WriteQuestionPresenter.class)
-public class WriteQuestionActivity extends BaseActivity<WriteQuestionPresenter> {
+public class WriteQuestionActivity extends BeamBaseActivity<WriteQuestionPresenter> {
     private EditText title;
     private EditText content;
 
@@ -36,7 +36,6 @@ public class WriteQuestionActivity extends BaseActivity<WriteQuestionPresenter> 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.send){
-            showProgress("发布中");
             getPresenter().publicQuestion(title.getText().toString(),content.getText().toString());
             return true;
         }

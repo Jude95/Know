@@ -1,14 +1,14 @@
-package com.jude.know.model.bean;
+package com.jude.know.bean;
+
+import java.util.List;
 
 /**
- * Created by zhuchenxi on 15/6/8.
+ * Created by zhuchenxi on 15/6/7.
  */
-public class AnswerResult {
+public class QuestionResult {
     int totalCount;
     int totalPage;
     int curPage;
-    Answer[] answers;
-
 
     public int getCurPage() {
         return curPage;
@@ -18,7 +18,7 @@ public class AnswerResult {
         this.curPage = curPage;
     }
 
-
+    List<Question> questions;
 
     public int getTotalCount() {
         return totalCount;
@@ -36,11 +36,11 @@ public class AnswerResult {
         this.totalPage = totalPage;
     }
 
-    public Answer[] getAnswers() {
-        return answers;
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    public void setAnswers(Answer[] answers) {
-        this.answers = answers;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }

@@ -1,58 +1,61 @@
 package com.jude.know.view;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.jude.beam.nucleus.factory.RequiresPresenter;
+import com.bumptech.glide.Glide;
+import com.jude.beam.bijection.RequiresPresenter;
+import com.jude.beam.expansion.list.BeamListActivity;
+import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.know.R;
-import com.jude.know.app.BaseRecyclerActivity;
-import com.jude.know.model.bean.Answer;
-import com.jude.know.model.bean.Question;
+import com.jude.know.bean.Answer;
+import com.jude.know.bean.Question;
+import com.jude.know.model.AccountModel;
 import com.jude.know.presenter.AnswerPresenter;
 import com.jude.know.util.RecentDateFormat;
 import com.jude.utils.JTimeTransform;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
 /**
  * Created by zhuchenxi on 15/6/8.
  */
 @RequiresPresenter(AnswerPresenter.class)
-public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer> {
+public class AnswerActivity extends BeamListActivity<AnswerPresenter,Answer> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRefreshAble();
-        setLoadMoreAble();
+        $(R.id.fab).setOnClickListener(v->{
+            if (!AccountModel.getInstance().hasLogin())AccountModel.getInstance().showLoginDialog(this);
+            else{
+                Intent i = new Intent(this, WriteAnswerActivity.class);
+                i.putExtra("data",getPresenter().getQuestion());
+                startActivityForResult(i, 0);
+            }
+        });
     }
 
     @Override
-    protected void onRefresh() {
-        getPresenter().refreshAnswer();
-    }
-
-    @Override
-    protected void onLoadMore() {
-        getPresenter().addAnswers();
-    }
-
-    @Override
-    protected BaseViewHolder getViewHolder(ViewGroup parent) {
+    protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         return new AnswerViewHolder(parent);
     }
 
-    public void setQuestion(Question question){
-        getAdapter().addHeader(new AnswerHeader(question));
+    @Override
+    protected ListConfig getConfig() {
+        return super.getConfig().setContainerEmptyAble(false);
+    }
+
+    public RecyclerArrayAdapter.ItemView getHeader(Question question){
+        return new AnswerHeader(question);
     }
 
     class AnswerHeader implements RecyclerArrayAdapter.ItemView{
@@ -67,7 +70,12 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
             ((TextView)$(view,R.id.title)).setText(question.getTitle());
             ((TextView)$(view,R.id.content)).setText(question.getContent());
             ((TextView)$(view,R.id.name)).setText(question.getAuthorName());
-            ((SimpleDraweeView)$(view,R.id.face)).setImageURI(Uri.parse(question.getAuthorFace()));
+            Glide.with(AnswerActivity.this)
+                    .load(question.getAuthorFace())
+                    .error(R.drawable.ic_person_gray)
+                    .placeholder(R.drawable.ic_person_gray)
+                    .bitmapTransform(new CropCircleTransformation(AnswerActivity.this))
+                    .into((ImageView) $(view, R.id.face));
             ((TextView)$(view,R.id.date)).setText(new JTimeTransform().parse("yyyy-MM-dd HH:mm:ss", question.getDate()).toString(new RecentDateFormat()));
             return view;
         }
@@ -79,28 +87,16 @@ public class AnswerActivity extends BaseRecyclerActivity<AnswerPresenter,Answer>
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.answer,menu);
-        return true;
+    public int getLayout() {
+        return R.layout.activity_question;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.answer){
-            Intent i = new Intent(this, WriteAnswerActivity.class);
-            i.putExtra("question",getPresenter().getQuestion());
-            startActivityForResult(i, WRITE);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    private static final int WRITE = 1000;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == WRITE && resultCode == RESULT_OK){
-            getPresenter().refreshAnswer();
+        if (resultCode == RESULT_OK){
+            getListView().setRefreshing(true,true);
         }
     }
 

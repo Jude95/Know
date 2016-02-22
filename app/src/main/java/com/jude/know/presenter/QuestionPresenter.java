@@ -4,16 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.facebook.common.internal.Lists;
-import com.jude.beam.nucleus.manager.Presenter;
+import com.jude.beam.expansion.list.BeamListActivityPresenter;
+import com.jude.know.bean.Question;
+import com.jude.know.bean.QuestionResult;
+import com.jude.know.bean.User;
 import com.jude.know.model.AccountModel;
+import com.jude.know.model.ImageModel;
 import com.jude.know.model.QuestionModel;
-import com.jude.know.model.RemoteFileModel;
-import com.jude.know.model.bean.Question;
-import com.jude.know.model.bean.QuestionResult;
-import com.jude.know.model.bean.User;
-import com.jude.know.model.callback.DataCallback;
-import com.jude.know.model.callback.StatusCallback;
+import com.jude.know.model.server.ErrorTransform;
+import com.jude.know.model.server.SchedulerTransform;
+import com.jude.know.util.ProgressDialogTransform;
 import com.jude.know.view.QuestionActivity;
 import com.jude.know.view.WriteQuestionActivity;
 import com.jude.library.imageprovider.ImageProvider;
@@ -21,184 +21,94 @@ import com.jude.library.imageprovider.OnImageSelectListener;
 import com.jude.utils.JUtils;
 
 import java.io.File;
-import java.util.ArrayList;
+
+import rx.Observable;
 
 /**
  * Created by zhuchenxi on 15/6/7.
  */
-public class QuestionPresenter extends Presenter<QuestionActivity> {
-    int page = 0;
-    private ArrayList<Question> arr = new ArrayList<>();
+public class QuestionPresenter extends BeamListActivityPresenter<QuestionActivity,Question> {
+
     private ImageProvider provider;
 
+    public static final int COUNT = 20;
+
     @Override
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
-        refreshQuestion();
+    protected void onCreate(QuestionActivity view, Bundle savedState) {
+        super.onCreate(view, savedState);
         provider = new ImageProvider(getView());
-        getView().setUser(AccountModel.getInstance().getUser());
-        AccountModel.getInstance().registerUserSubscriber(user -> {
-            getView().setUser(user);
-        });
+        onRefresh();
+    }
+
+    public Observable<User> getUser(){
+        return AccountModel.getInstance().getAccountSubject()
+                .compose(new SchedulerTransform<>());
     }
 
     @Override
-    protected void onCreateView(QuestionActivity view) {
-        super.onCreateView(view);
-        getView().refreshData(arr.toArray(new Question[0]));
+    public void onRefresh() {
+        super.onRefresh();
+        QuestionModel.getInstance().getQuestionsFromServer(0,COUNT)
+                .compose(new ErrorTransform<>(ErrorTransform.ServerErrorHandler.AUTH_TOAST))
+                .map(QuestionResult::getQuestions)
+                .unsafeSubscribe(getRefreshSubscriber());
+    }
+
+    @Override
+    public void onLoadMore() {
+        super.onLoadMore();
+        QuestionModel.getInstance().getQuestionsFromServer(getCurPage(),COUNT)
+                .compose(new ErrorTransform<>(ErrorTransform.ServerErrorHandler.AUTH_TOAST))
+                .map(QuestionResult::getQuestions)
+                .unsafeSubscribe(getRefreshSubscriber());
     }
 
     public void startQuestion(){
-        if (AccountModel.getInstance().getUser()==null)getView().showLogin();
-        else getView().startActivity(new Intent(getView(), WriteQuestionActivity.class));
-    }
-
-    public void refreshQuestion(){
-        QuestionModel.getInstance().getQuestionsFromServer(0, new DataCallback<QuestionResult>() {
-            @Override
-            public void success(String info, QuestionResult data) {
-                if (getView() == null) return;
-                getView().refreshData(data.getQuestions());
-                arr.clear();
-                if (data.getQuestions() != null)
-                    arr.addAll(Lists.newArrayList(data.getQuestions()));
-                if (data.getTotalPage() - 1 <= data.getCurPage()) getView().stopLoad();
-                page = 0;
-            }
-
-            @Override
-            public void error(String errorInfo) {
-                JUtils.Toast(errorInfo);
-            }
-        });
-    }
-
-    public void addQuestions(){
-        QuestionModel.getInstance().getQuestionsFromServer(page+1, new DataCallback<QuestionResult>() {
-            @Override
-            public void success(String info, QuestionResult data) {
-                if (getView()==null)return;
-                getView().addData(data.getQuestions());
-                if (data.getQuestions()!=null)
-                arr.addAll(Lists.newArrayList(data.getQuestions()));
-                if (data.getTotalPage()-1 <= data.getCurPage())getView().stopLoad();
-                page++;
-            }
-
-            @Override
-            public void error(String errorInfo) {
-                JUtils.Toast(errorInfo);
-            }
-        });
+        if (!AccountModel.getInstance().hasLogin())getView().showLogin();
+        else getView().startActivityForResult(new Intent(getView(), WriteQuestionActivity.class), 0);
     }
 
     public void signOut(){
-        AccountModel.getInstance().setUser(null);
+        AccountModel.getInstance().logout();
     }
 
-    public void login(String name,String password){
-        getView().showProgress("登陆中");
-        AccountModel.getInstance().login(name, password, new DataCallback<User>() {
 
+    OnImageSelectListener listener = new OnImageSelectListener() {
 
-            @Override
-            public void result(int status, String info) {
-                getView().dismissProgress();
-            }
+        @Override
+        public void onImageSelect() {
+            getView().getExpansion().showProgressDialog("加载中");
+        }
 
-            @Override
-            public void success(String info, User data) {
-                JUtils.Toast("登陆成功");
-                AccountModel.getInstance().setUser(data);
-            }
+        @Override
+        public void onImageLoaded(Uri uri) {
+            getView().getExpansion().dismissProgressDialog();
+            provider.corpImage(uri, 300, 300, new OnImageSelectListener() {
+                @Override
+                public void onImageSelect() {
+                }
 
-            @Override
-            public void failure(String info) {
-                JUtils.Toast(info);
-            }
-        });
-    }
+                @Override
+                public void onImageLoaded(Uri uri) {
+                    uploadFace(new File(uri.getPath()));
+                }
 
-    public void register(String name,String password){
-        getView().showProgress("注册中");
-        AccountModel.getInstance().register(name, password, new StatusCallback() {
+                @Override
+                public void onError() {
+                    getView().getExpansion().dismissProgressDialog();
+                    JUtils.Toast("加载错误");
+                }
+            });
 
+        }
 
-            @Override
-            public void result(int status, String info) {
-                getView().dismissProgress();
-            }
-
-            @Override
-            public void success(String info) {
-                login(name, password);
-            }
-
-
-            @Override
-            public void failure(String info) {
-                JUtils.Toast(info);
-            }
-        });
-    }
-
+        @Override
+        public void onError() {
+            getView().getExpansion().dismissProgressDialog();
+            JUtils.Toast("加载错误");
+        }
+    };
     public void editFace(int style){
-        OnImageSelectListener listener = new OnImageSelectListener() {
-            @Override
-            public void onImageSelect() {
-                getView().showProgress("加载中");
-            }
-
-            @Override
-            public void onImageLoaded(Uri uri) {
-                getView().dismissProgress();
-                //开始裁剪
-                provider.corpImage(uri, 300, 300, new OnImageSelectListener() {
-                    @Override
-                    public void onImageSelect() {
-                        getView().showProgress("上传中");
-                    }
-
-                    @Override
-                    public void onImageLoaded(Uri uri) {
-                        RemoteFileModel.getInstance().putImage(new File(uri.getPath()), new RemoteFileModel.UploadImageListener() {
-                            @Override
-                            public void onComplete(RemoteFileModel.SizeImage path) {
-                                AccountModel.getInstance().modifyFace(path.getOriginalImage(), new StatusCallback() {
-                                    @Override
-                                    public void success(String info) {
-                                        JUtils.Toast("上传成功");
-
-                                    }
-
-                                    @Override
-                                    public void result(int status, String info) {
-                                        getView().dismissProgress();
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onError() {
-                                JUtils.Toast("上传失败");
-                                getView().dismissProgress();
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onError() {
-                getView().dismissProgress();
-            }
-        };
         switch (style){
             case 0:
                 provider.getImageFromCamera(listener);
@@ -210,6 +120,17 @@ public class QuestionPresenter extends Presenter<QuestionActivity> {
                 provider.getImageFromNet(listener);
                 break;
         }
+    }
+
+    private void uploadFace(File file){
+        Observable.just(file)
+                .flatMap(file1 -> ImageModel.getInstance().putImageSync(file1))
+                .flatMap(path -> AccountModel.getInstance().modifyFace(path))
+                .compose(new ErrorTransform<>(ErrorTransform.ServerErrorHandler.AUTH_TOAST))
+                .compose(new ProgressDialogTransform<>(getView(),"上传中"))
+                .subscribe(o -> {
+                    JUtils.Toast("上传成功");
+                });
     }
 
 

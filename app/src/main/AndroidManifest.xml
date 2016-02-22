@@ -7,7 +7,7 @@
         android:name=".app.APP"
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:theme="@style/AppTheme">
 
         <meta-data
@@ -15,12 +15,12 @@
             android:value="
             com.jude.know.model.QuestionModel,
             com.jude.know.model.AccountModel,
-            com.jude.know.model.RemoteFileModel
+            com.jude.know.model.ImageModel
             "
             />
         <activity
             android:name=".view.QuestionActivity"
-            android:label="Know">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
