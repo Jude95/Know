@@ -60,7 +60,7 @@ public class QuestionPresenter extends BeamListActivityPresenter<QuestionActivit
         QuestionModel.getInstance().getQuestionsFromServer(getCurPage(),COUNT)
                 .compose(new ErrorTransform<>(ErrorTransform.ServerErrorHandler.AUTH_TOAST))
                 .map(QuestionResult::getQuestions)
-                .unsafeSubscribe(getRefreshSubscriber());
+                .unsafeSubscribe(getMoreSubscriber());
     }
 
     public void startQuestion(){

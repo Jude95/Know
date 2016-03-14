@@ -47,6 +47,6 @@ public class AnswerPresenter extends BeamListActivityPresenter<AnswerActivity,An
         QuestionModel.getInstance().getAnswerFromServer(getCurPage(),COUNT,question.getId(),false)
                 .compose(new ErrorTransform<>(ErrorTransform.ServerErrorHandler.AUTH_TOAST))
                 .map(AnswerResult::getAnswers)
-                .unsafeSubscribe(getRefreshSubscriber());
+                .unsafeSubscribe(getMoreSubscriber());
     }
 }

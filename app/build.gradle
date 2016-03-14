@@ -13,9 +13,9 @@ android {
     defaultConfig {
         applicationId "com.jude.know"
         minSdkVersion 15
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 23
+        versionCode 2
+        versionName "1.1"
         manifestPlaceholders = [
                 UMENG_APPKEY    : props['UMENG_APPKEY']
         ]
@@ -96,7 +96,7 @@ dependencies {
     compile 'com.jude:fitsystemwindowlayout:1.0.8'
     compile 'com.android.support:design:23.1.1'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
-    compile 'com.jude:beam:2.7.3'
+    compile 'com.jude:beam:2.7.5'
     compile 'com.jude:utils:1.1.0'
     compile 'com.jude:imageprovider:2.0.8'
     compile 'com.jude:swipebackhelper:2.1.5'

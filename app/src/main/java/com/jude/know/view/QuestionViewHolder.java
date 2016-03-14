@@ -48,7 +48,7 @@ public class QuestionViewHolder extends BaseViewHolder<Question> {
     @Override
     public void setData(Question data) {
         question = data;
-        title.setText(data.getTitle());
+        title.setText(data.getTitle().trim());
         name.setText(data.getAuthorName());
         Glide.with(getContext())
                 .load(data.getAuthorFace())
@@ -66,7 +66,7 @@ public class QuestionViewHolder extends BaseViewHolder<Question> {
             content.setVisibility(View.GONE);
         }else{
             content.setVisibility(View.VISIBLE);
-            content.setText(data.getContent());
+            content.setText(data.getContent().trim());
         }
     }
 }

@@ -42,6 +42,7 @@ public class APP extends Application {
         ListConfig.setDefaultListConfig(new ListConfig()
                 .setPaddingNavigationBarAble(true)
                 .setRefreshAble(true)
+                .setLoadmoreAble(true)
                 .setContainerEmptyRes(R.layout.view_empty)
                 .setContainerProgressRes(R.layout.view_progress)
                 .setContainerLayoutRes(R.layout.activity_recyclerview));
