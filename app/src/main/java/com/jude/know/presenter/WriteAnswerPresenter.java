@@ -2,6 +2,7 @@ package com.jude.know.presenter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.jude.beam.bijection.Presenter;
 import com.jude.know.bean.Question;
@@ -19,6 +20,10 @@ public class WriteAnswerPresenter extends Presenter<WriteAnswerActivity> {
     public Question question;
 
     public void publicAnswer(String answer) {
+        if (TextUtils.isEmpty(answer)){
+            JUtils.Toast("请填写内容");
+            return;
+        }
         QuestionModel.getInstance().publicAnswer(question.getId(), answer)
                 .compose(new ErrorTransform<>(ErrorTransform.ServerErrorHandler.AUTH_TOAST))
                 .compose(new ProgressDialogTransform<>(getView(), "提交中"))
