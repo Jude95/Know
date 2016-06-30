@@ -64,7 +64,7 @@ public class QuestionActivity extends BeamListActivity<QuestionPresenter,Questio
     }
 
     @Override
-    protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         return new QuestionViewHolder(parent);
     }
 

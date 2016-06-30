@@ -45,12 +45,12 @@ public class AnswerActivity extends BeamListActivity<AnswerPresenter,Answer> {
     }
 
     @Override
-    protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         return new AnswerViewHolder(parent);
     }
 
     @Override
-    protected ListConfig getConfig() {
+    public ListConfig getConfig() {
         return super.getConfig().setContainerEmptyAble(false);
     }
 

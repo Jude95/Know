@@ -8,7 +8,7 @@ props.load(new FileInputStream(file("../config/key.properties")))
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.jude.know"
@@ -85,18 +85,18 @@ def buildTime() {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.google.code.gson:gson:2.4'
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.0.2'
-    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:cardview-v7:23.4.0'
     compile('com.github.afollestad.material-dialogs:commons:0.8.5.4@aar') {
         transitive = true
     }
     compile 'com.jude:fitsystemwindowlayout:1.0.8'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:design:23.4.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
-    compile 'com.jude:beam:2.7.5'
+    compile 'com.jude:beam:3.0.1'
     compile 'com.jude:utils:1.1.0'
     compile 'com.jude:imageprovider:2.0.8'
     compile 'com.jude:swipebackhelper:2.1.5'
